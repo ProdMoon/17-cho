@@ -1,10 +1,10 @@
 import { Typography, Paper } from '@mui/material';
 
 const content = () => {
-  return <Typography>이 공간은 openvidu를 위한 공간입니다.</Typography>;
+  return <Typography>이 공간은 채팅창을 위한 공간입니다.</Typography>;
 };
 
-const NowStreaming = () => {
+const Chat = () => {
   return (
     <Paper
       elevation={5}
@@ -20,4 +20,4 @@ const NowStreaming = () => {
   );
 };
 
-export default NowStreaming;
+export default Chat;
