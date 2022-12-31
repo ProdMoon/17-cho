@@ -1,0 +1,11 @@
+.text-link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+body {
+    background-image: url(../public/newjeans_minji.jpeg);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+}

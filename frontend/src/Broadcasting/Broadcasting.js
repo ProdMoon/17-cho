@@ -3,9 +3,10 @@
 // pages
 import WaitingStreamerList from './WaitingStreamerList';
 import NowStreaming from './NowStreaming';
+import Chat from './Chat';
 
 // css
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 // 이어지는 방송
 // axios.get('/api/broadcasting/initialroom/readyqueue')
@@ -30,9 +31,26 @@ import { Box } from '@mui/material';
 
 function Broadcasting() {
   return (
-    <Box>
-      <WaitingStreamerList />
-      <NowStreaming />
+    <Box
+      sx={{
+        p: 3,
+      }}
+    >
+      <Grid container spacing={1}>
+        <Grid container item spacing={2}>
+          <Grid item xs={12}>
+            <WaitingStreamerList />
+          </Grid>
+        </Grid>
+        <Grid container item spacing={2}>
+          <Grid item xs={8}>
+            <NowStreaming />
+          </Grid>
+          <Grid item xs={4}>
+            <Chat />
+          </Grid>
+        </Grid>
+      </Grid>
     </Box>
   );
 }
