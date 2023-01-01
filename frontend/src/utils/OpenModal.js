@@ -26,7 +26,12 @@ const OpenModal = (props) => {
 
   return (
     <div>
-      <Button variant='contained' onClick={handleOpen}>
+      <Button
+        onClick={handleOpen}
+        sx={{
+          color: 'inherit',
+        }}
+      >
         {buttonLabel}
       </Button>
       <Modal
@@ -41,9 +46,7 @@ const OpenModal = (props) => {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
-            {contentPage}
-          </Box>
+          <Box sx={style}>{contentPage}</Box>
         </Fade>
       </Modal>
     </div>

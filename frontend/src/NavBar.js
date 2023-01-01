@@ -8,7 +8,7 @@ const NavBar = () => {
       position='sticky'
       color='primary'
       sx={{
-        height: 60,
+        height: 50,
         p: 1,
       }}
     >
