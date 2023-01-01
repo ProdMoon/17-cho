@@ -1,4 +1,5 @@
-import { Typography, Paper, Grid } from '@mui/material';
+import { Typography, Paper, Grid, TextField, Button } from '@mui/material';
+import { useRef } from 'react';
 
 const thisIsTempFunction = () => {
   const names = [
@@ -34,16 +35,21 @@ const thisIsTempFunction = () => {
     'Curabitur auctor quam ac eleifend porttitor.',
   ];
   const chatLines = [];
-  for (let i=0; i<names.length; i++) {
+  for (let i = 0; i < names.length; i++) {
     let a = {};
     let b = {};
     a['nickname'] = names[i];
     b['chatContent'] = contents[i];
-    let c = {...a, ...b};
+    let c = { ...a, ...b };
     chatLines.push(c);
   }
   return chatLines;
-}
+};
+
+const scrollDown = (props) => {
+  const ref = props;
+  ref.current.scrollIntoView(false);
+};
 
 // TODO: 서버에서 채팅 데이터를 받아오면 배열에 추가하여 rerendering.
 const chattingView = () => {
@@ -62,19 +68,38 @@ const chattingView = () => {
   });
 };
 
-const content = () => {
+const inputBox = () => {
+  return <TextField multiline rows={2} placeholder='Enter키로 메시지 전송' />;
+};
+
+const content = (props) => {
+  const chattingViewRef = props;
   const label = '채팅';
   return (
     <Grid container direction='column' p={1.5} spacing={1}>
-      <Grid item>
-        <Typography>{label}</Typography>
+      <Grid item xs='auto'>
+        <Typography variant='h5'>{label}</Typography>
       </Grid>
-      <Grid item>{chattingView()}</Grid>
+      <Grid
+        item
+        xs={9}
+        sx={{
+          overflowY: 'scroll',
+        }}
+      >
+        <div ref={chattingViewRef}>{chattingView()}</div>
+      </Grid>
+      <Grid item xs='auto'>
+        {inputBox()}
+        <Button onClick={() => scrollDown(chattingViewRef)}>내리기</Button>
+      </Grid>
     </Grid>
   );
 };
 
 const Chat = () => {
+  const chattingViewRef = useRef();
+
   return (
     <Paper
       elevation={5}
@@ -83,7 +108,7 @@ const Chat = () => {
         display: 'flex',
       }}
     >
-      {content()}
+      {content(chattingViewRef, scrollDown)}
     </Paper>
   );
 };
