@@ -30,6 +30,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	implementation 'io.openvidu:openvidu-parent:2.0.0'
+	implementation 'io.openvidu:openvidu-java-client:2.25.0'
 
 //	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	compileOnly 'org.projectlombok:lombok'
