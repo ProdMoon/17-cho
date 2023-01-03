@@ -1,7 +1,5 @@
 plugins {
 	id 'java'
-
-//	내가 추가함
 	id 'eclipse'
 
 	id 'org.springframework.boot' version '2.7.7'
@@ -31,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 
 //	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	compileOnly 'org.projectlombok:lombok'
@@ -55,6 +54,10 @@ dependencies {
 	testCompileOnly 'junit:junit:4.13'
 	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
 
+	//daeell
+	implementation 'org.springframework.boot:spring-boot-starter-websocket:2.7.7'
+	implementation 'org.webjars:sockjs-client:1.5.1'
+	implementation 'org.webjars:stomp-websocket:2.3.3'
 
 }
 
