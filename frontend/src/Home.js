@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // CSS
 import './Home.css';
 
-function Home() {
+const Home = () => {
   return (
     <Box>
       <Grid

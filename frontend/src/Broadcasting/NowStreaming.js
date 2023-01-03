@@ -1,8 +1,5 @@
-import { Typography, Paper } from '@mui/material';
-
-const content = () => {
-  return <Typography>이 공간은 openvidu를 위한 공간입니다.</Typography>;
-};
+import { Paper } from '@mui/material';
+import Admin from '../Admin/Admin';
 
 const NowStreaming = () => {
   return (
@@ -15,7 +12,7 @@ const NowStreaming = () => {
         alignItems: 'center',
       }}
     >
-      {content()}
+      <Admin />
     </Paper>
   );
 };

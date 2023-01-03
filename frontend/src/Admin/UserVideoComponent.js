@@ -1,25 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import OpenViduVideoComponent from './OvVideo';
 
-const UserVideoComponent = (props) => {
+export default class UserVideoComponent extends Component {
 
-  const streamManager = props.streamManager;
+    getNicknameTag() {
+        // Gets the nickName of the user
+        return JSON.parse(this.props.streamManager.stream.connection.data).clientData;
+    }
 
-  const getNicknameTag = () => {
-    // 유저의 닉네임을 획득합니다.
-    return JSON.parse(streamManager.stream.connection.data).clientData;
-  }
-
-  return (
-    <div>
-      {streamManager !== undefined ? (
-        <div>
-          <OpenViduVideoComponent streamManager={streamManager} />
-          <div><p>{getNicknameTag}</p></div>
-        </div>
-      ) : null}
-    </div>
-  )
+    render() {
+        return (
+            <div>
+                {this.props.streamManager !== undefined ? (
+                    <div className="streamcomponent">
+                        <OpenViduVideoComponent streamManager={this.props.streamManager} />
+                        <div><p>{this.getNicknameTag()}</p></div>
+                    </div>
+                ) : null}
+            </div>
+        );
+    }
 }
-
-export default UserVideoComponent;

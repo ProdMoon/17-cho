@@ -1,5 +1,6 @@
 import { AppBar, Button, Grid } from '@mui/material';
 import Login from './Login/Login';
+import SocialLogin from './Login/SocialLogin';
 import OpenModal from './utils/OpenModal';
 
 const authenticUser = () => {
@@ -19,7 +20,7 @@ const anonymous = () => {
     <Grid container spacing={2}>
       <Grid item xs={10} />
       <Grid item xs='auto'>
-        <OpenModal buttonLabel='Login' contentPage={<Login />} />
+        <OpenModal buttonLabel='Login' contentPage={<SocialLogin />} />
       </Grid>
     </Grid>
   );
