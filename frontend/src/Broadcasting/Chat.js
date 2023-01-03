@@ -69,7 +69,14 @@ const chattingView = () => {
 };
 
 const inputBox = () => {
-  return <TextField multiline rows={2} placeholder='Enter키로 메시지 전송' />;
+  return (
+    <TextField
+      fullWidth
+      multiline
+      rows={2}
+      placeholder='Enter키로 메시지 전송'
+    />
+  );
 };
 
 const content = (props) => {
@@ -91,8 +98,8 @@ const content = (props) => {
       </Grid>
       <Grid item xs='auto'>
         {inputBox()}
-        <Button onClick={() => scrollDown(chattingViewRef)}>내리기</Button>
       </Grid>
+      <Button onClick={() => scrollDown(chattingViewRef)}>내리기</Button>
     </Grid>
   );
 };

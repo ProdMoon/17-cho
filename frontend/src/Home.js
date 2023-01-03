@@ -1,4 +1,4 @@
-import { Box, Fab, Grid, Typography } from '@mui/material';
+import { Box, Fab, Grid, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 // CSS
@@ -9,6 +9,7 @@ function Home() {
     <Box>
       <Grid
         container
+        direction='column'
         spacing={2}
         sx={{
           position: 'fixed',
@@ -18,6 +19,11 @@ function Home() {
         <Grid item>
           <Typography variant='h2'>뉴진스 민지</Typography>
           <Typography variant='h2'>너무예쁘네요</Typography>
+        </Grid>
+        <Grid item>
+          <Link className='text-link' to={'/admin'}>
+            <Button variant='contained'>관리자 페이지로 이동</Button>
+          </Link>
         </Grid>
       </Grid>
       <Link className='text-link' to='/broadcasting'>
