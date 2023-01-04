@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() //요청에 대한 보안 검사 실행
                 .antMatchers("/", "/css/**", "/images/**",
-                        "/js/**", "/h2-console/**").permitAll() //해당 URL은 모두 허용
+                        "/js/**", "/h2-console/**", "/**").permitAll() //해당 URL은 모두 허용
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name()) //권한 제한
                 .anyRequest().authenticated() //어떠한 요청에도 인증을 받도록 설정
                 .and()
