@@ -3,20 +3,21 @@ package com.example.manmu.controller;
 
 import com.example.manmu.ChatMessage;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
-@Log4j2
+@Slf4j
 @Controller
 public class ChatController {
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        log.debug("sendMessage@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("chatMessage = " + chatMessage);
         return chatMessage;
     }
 
@@ -24,8 +25,9 @@ public class ChatController {
     @SendTo("/topic/public")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
+        System.out.println("chatMessage@@@@@@@@@@@@@@@@@@@@@@");
         // Add username in web socket session
-        log.debug("addUser@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("chatMessage = " + chatMessage);
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         return chatMessage;
     }
