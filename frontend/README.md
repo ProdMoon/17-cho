@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+# [17초] 프론트엔드 서버
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 배포 가이드라인
 
-## Available Scripts
+배포를 위해서는, 다음 코드를 변경해 주어야 합니다.
 
-In the project directory, you can run:
+### frontend/src/Admin/Admin.js
 
-### `npm start`
+  - application server의 주소 부분입니다. (통상 백엔드 서버)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  - 아래 코드의 `localhost`를 public ip (i.e. 3.36.108.84)로 변경합니다.   
+    필요하면 포트도 변경해주어야 합니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  - `const APPLICATION_SERVER_URL = 'http://localhost:5000/';`
 
-### `npm test`
+### frontend/src/setupProxy.js
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - http-proxy-middleware를 위한 설정입니다.  
+    현재는 React(nodejs) 서버가 proxy의 역할도 하고 있습니다.
 
-### `npm run build`
+  - setupProxy.js에 있는 모든 target에 대해 바꿔주어야 합니다.
+  
+  - `target: 'http://localhost:8080',`  
+    ...
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### frontend/src/Broadcasting/Chat.js
+  
+  - 채팅 기능에서 새로운 websocket 연결을 만들 때 사용하는 주소를 바꿔주어야 합니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  - `const socket = new SockJS('http://localhost:8080/ws');`

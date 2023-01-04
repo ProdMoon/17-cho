@@ -1,6 +1,10 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useState } from 'react';
 
+const GoogleLogin = () => {
+  
+}
+
 // const loginHandler = () => {
 //   return (
 

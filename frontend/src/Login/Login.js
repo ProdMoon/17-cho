@@ -37,14 +37,27 @@ function Copyright(props) {
 const theme = createTheme();
 
 const Login = () => {
-  const handleSubmit = async (event) => {
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   const response = await axios.post('/api/login', {
+  //     id: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  //   console.log(response);
+  // };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await axios.post('/api/test', {
-      id: data.get('email'),
-      password: data.get('password'),
-    });
-    console.log(response);
+    const id = data.get('email');
+    const password = data.get('password')
+    
+    sessionStorage.setItem('id', id);
+    sessionStorage.setItem('password', password);
+    console.log(sessionStorage.getItem('id'));
+
+    window.location.reload();
   };
 
   return (
