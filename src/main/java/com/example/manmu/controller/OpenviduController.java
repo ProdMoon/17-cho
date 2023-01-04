@@ -1,6 +1,8 @@
 package com.example.manmu.controller;
 
 import io.openvidu.java.client.*;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import java.util.Map;
 
+@Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class OpenviduController {
@@ -25,11 +28,15 @@ public class OpenviduController {
         this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
     }
 
+
     @PostMapping("/api/sessions")
     public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
+        log.info("params: {}", params);
         SessionProperties properties = SessionProperties.fromJson(params).build();
+        log.info("properties: {}", properties);
         Session session = openvidu.createSession(properties);
+        log.info("session: {}", session);
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
     }
 
