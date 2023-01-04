@@ -12,7 +12,7 @@ const Chat = () => {
   const label = '채팅';
 
   useEffect(() => {
-    const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS('http://3.36.108.84:8080/ws');
     const stompClient = Stomp.over(socket);
     setClient(stompClient);
     stompClient.connect({}, (frame) => {
