@@ -25,21 +25,23 @@ public class OpenviduController {
 
     @PostConstruct
     public void init() {
-        log.info("OpenviduController init");
+        log.debug("OpenviduController init");
         this.openvidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
+        log.debug(openvidu.toString());
+        log.debug("OpenviduController init end");
     }
 
 
     @PostMapping("/api/sessions")
     public ResponseEntity<String> initializeSession(@RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        log.info("initializeSession");
-        log.info("params: {}", params);
+        log.debug("initializeSession");
+        log.debug("params: {}", params);
         SessionProperties properties = SessionProperties.fromJson(params).build();
-        log.info("properties: {}", properties);
+        log.debug("properties: {}", properties);
         Session session = openvidu.createSession(properties);
-        log.info("session: {}", session);
-        log.info("here we come");
+        log.debug("session: {}", session);
+        log.debug("here we come");
         return new ResponseEntity<>(session.getSessionId(), HttpStatus.OK);
     }
 
@@ -52,13 +54,15 @@ public class OpenviduController {
     public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
                                                    @RequestBody(required = false) Map<String, Object> params)
             throws OpenViduJavaClientException, OpenViduHttpException {
-        log.info("createConnection");
+        log.debug("createConnection");
         Session session = openvidu.getActiveSession(sessionId);
         if (session == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
         Connection connection = session.createConnection(properties);
+        log.debug("connection: {}", connection);
+        log.debug("connection end");
         return new ResponseEntity<>(connection.getToken(), HttpStatus.OK);
     }
 
