@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import UserVideoComponent from './UserVideoComponent';
 import { Box } from '@mui/material';
 
-const APPLICATION_SERVER_URL = 'http://3.36.108.84:5000/';
+const APPLICATION_SERVER_URL = 'https://3.36.108.84:5000/';
 
 class Admin extends Component {
   constructor(props) {
