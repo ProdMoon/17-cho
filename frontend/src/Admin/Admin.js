@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import UserVideoComponent from './UserVideoComponent';
 import { Box } from '@mui/material';
 
-const APPLICATION_SERVER_URL = 'https://3.36.108.84:5000/';
+const APPLICATION_SERVER_URL = 'http://192.168.0.62:5000/';
 
 class Admin extends Component {
   constructor(props) {
@@ -22,6 +22,8 @@ class Admin extends Component {
     };
 
     this.joinSession = this.joinSession.bind(this);
+    this.publishStream = this.publishStream.bind(this);
+    this.unpublishStream = this.unpublishStream.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.switchCamera = this.switchCamera.bind(this);
     this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
@@ -122,46 +124,7 @@ class Admin extends Component {
           // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
           mySession
             .connect(token, { clientData: this.state.myUserName })
-            .then(async () => {
-              // --- 5) Get your own camera stream ---
-
-              // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
-              // element: we will manage it on our own) and with the desired properties
-              let publisher = await this.OV.initPublisherAsync(undefined, {
-                audioSource: undefined, // The source of audio. If undefined default microphone
-                videoSource: undefined, // The source of video. If undefined default webcam
-                publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                resolution: '640x480', // The resolution of your video
-                frameRate: 30, // The frame rate of your video
-                insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
-                mirror: false, // Whether to mirror your local video or not
-              });
-
-              // --- 6) Publish your stream ---
-
-              mySession.publish(publisher);
-
-              // Obtain the current video device in use
-              var devices = await this.OV.getDevices();
-              var videoDevices = devices.filter(
-                (device) => device.kind === 'videoinput'
-              );
-              var currentVideoDeviceId = publisher.stream
-                .getMediaStream()
-                .getVideoTracks()[0]
-                .getSettings().deviceId;
-              var currentVideoDevice = videoDevices.find(
-                (device) => device.deviceId === currentVideoDeviceId
-              );
-
-              // Set the main video in the page to display our webcam and store our Publisher
-              this.setState({
-                currentVideoDevice: currentVideoDevice,
-                mainStreamManager: publisher,
-                publisher: publisher,
-              });
-            })
+            .then()
             .catch((error) => {
               console.log(
                 'There was an error connecting to the session:',
@@ -172,6 +135,51 @@ class Admin extends Component {
         });
       }
     );
+  }
+
+  async publishStream() {
+    var mySession = this.state.session;
+
+    // --- 5) Get your own camera stream ---
+
+    // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
+    // element: we will manage it on our own) and with the desired properties
+    let publisher = await this.OV.initPublisherAsync(undefined, {
+      audioSource: undefined, // The source of audio. If undefined default microphone
+      videoSource: undefined, // The source of video. If undefined default webcam
+      publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+      publishVideo: true, // Whether you want to start publishing with your video enabled or not
+      resolution: '320x480', // The resolution of your video
+      frameRate: 30, // The frame rate of your video
+      insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+      mirror: false, // Whether to mirror your local video or not
+    });
+
+    // --- 6) Publish your stream ---
+
+    mySession.publish(publisher);
+
+    // Obtain the current video device in use
+    var devices = await this.OV.getDevices();
+    var videoDevices = devices.filter((device) => device.kind === 'videoinput');
+    var currentVideoDeviceId = publisher.stream
+      .getMediaStream()
+      .getVideoTracks()[0]
+      .getSettings().deviceId;
+    var currentVideoDevice = videoDevices.find(
+      (device) => device.deviceId === currentVideoDeviceId
+    );
+
+    // Set the main video in the page to display our webcam and store our Publisher
+    this.setState({
+      currentVideoDevice: currentVideoDevice,
+      mainStreamManager: publisher,
+      publisher: publisher,
+    });
+  }
+
+  async unpublishStream () {
+
   }
 
   leaveSession() {
@@ -289,6 +297,13 @@ class Admin extends Component {
                 id='buttonLeaveSession'
                 onClick={this.leaveSession}
                 value='Leave session'
+              />
+              <input
+                className='btn btn-large btn-danger'
+                type='button'
+                id='buttonPublishStream'
+                onClick={this.publishStream}
+                value='Publish stream'
               />
             </div>
 
